@@ -1,3 +1,4 @@
+// DELCARE GLOBAL VARIABLE
 let marginTop = 0;
 let marginLeft = 0;
 
