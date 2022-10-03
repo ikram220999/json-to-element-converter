@@ -8,13 +8,38 @@
     <title>Document</title>
 
     <style>
-   
+      .sum {
+        display: block;
+        white-space: pre-wrap;
+      }
+
+      pre code {
+        background-color: #eee;
+        border: 1px solid #999;
+        display: block;
+        padding: 20px;
+      }
+
+      .b {
+        margin: auto;
+        width: 50%;
+      }
+
+      .btn {
+        display: flex;
+        justify-content: space-evenly;
+      }
     </style>
   </head>
   <body>
-    <textarea style="min-width: 200px; min-height: 300px" id="input">
-    </textarea>
-    <button onclick="jsonsubmit()">Submit</button>
+    <div class="b">
+      <textarea style="width: 100%; min-height: 150px" id="input"> </textarea>
+      <br />
+      <div class="btn">
+        <button onclick="reset()">Reset</button>
+        <button onclick="jsonsubmit()">Submit</button>
+      </div>
+    </div>
 
     <div id="as"></div>
   </body>
