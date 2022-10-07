@@ -20,41 +20,73 @@ let count = 0;
 
 let font_size = 10;
 function jsonsubmit() {
+  let o = document.getElementById("input");
   let a = document.getElementById("input").value;
-  let json = JSON.parse(a);
+ 
 
-  console.log("KETUA JSON", json);
-  let length = Object.keys(json);
+  let f = isJson(a)
 
-  Object.entries(json).forEach((element, idx) => {
-    let firstIdx = element.shift();
+  console.log("f",f);
+  if (f == true) {
+     let json = JSON.parse(a);
+    console.log("KETUA JSON", json);
+    let length = Object.keys(json);
 
-    if (firstIdx) {
-      marginTop = 10;
-      parentMgTop = 10;
+    Object.entries(json).forEach((element, idx) => {
+      let firstIdx = element.shift();
 
-      marginLeft = 10;
-      parentMgLeft = 10;
+      if (firstIdx) {
+        marginTop = 10;
+        parentMgTop = 10;
 
-      parentBox(firstIdx, marginTop, marginLeft);
+        marginLeft = 10;
+        parentMgLeft = 10;
 
-      marginTop = 0;
-      marginLeft = 0;
-    }
-    if (Array.isArray(element)) {
-      // confirm array
-      element.map((ele) => {
-        mgTop = parentMgTop;
-        mgLeft = parentMgLeft + 40;
-        parentMgLeft = mgLeft;
-
-        addArray(ele, mgTop, mgLeft);
+        parentBox(firstIdx, marginTop, marginLeft);
 
         marginTop = 0;
         marginLeft = 0;
-      });
-    }
-  });
+      }
+      if (Array.isArray(element)) {
+        // confirm array
+        element.map((ele) => {
+          mgTop = parentMgTop;
+          mgLeft = parentMgLeft + 40;
+          parentMgLeft = mgLeft;
+
+          addArray(ele, mgTop, mgLeft);
+
+          marginTop = 0;
+          marginLeft = 0;
+        });
+      }
+    });
+  } else {
+    
+    // o.style.border = "1px solid red"
+    alert("Only JSON can be converted");
+    console.log("only json can be converted");
+    
+
+  }
+}
+
+function isJson(item) {
+  item = typeof item !== "string"
+      ? JSON.stringify(item)
+      : item;
+
+  try {
+      item = JSON.parse(item);
+  } catch (e) {
+      return false;
+  }
+
+  if (typeof item === "object" && item !== null) {
+      return true;
+  }
+
+  return false;
 }
 
 // ---------- DETERMINE ELEMENT -------------
@@ -114,16 +146,18 @@ function addArray(ele, mgTop, mgLeft) {
               console.log("array baru", ele);
 
               if (typeof ele == "object") {
-                addArray(ele, mgTop, mgLeft+40);
+                addArray(ele, mgTop, mgLeft + 40);
               } else {
                 createChildEle(color5, ele, mgTop, mgLeft + 40);
               }
             });
           } else {
-            if(typeof ele[key] == "object"){
-              Object.keys(ele[key].forEach((key) => {
-                createChildEle(color4, ele[key], mgTop, mgLeft + 40);
-              }))
+            if (typeof ele[key] == "object") {
+              Object.keys(
+                ele[key].forEach((key) => {
+                  createChildEle(color4, ele[key], mgTop, mgLeft + 40);
+                })
+              );
             }
             createChildEle(color3, ele[key], mgTop, mgLeft + 40);
           }
@@ -144,11 +178,9 @@ function addArray(ele, mgTop, mgLeft) {
       if (typeof ele == "boolean") {
         createBooleanEle(color8, ele, mgTop, mgLeft);
       } else {
-
-        if(ele){
-
+        if (ele) {
           createEle(color4, ele, mgTop, mgLeft);
-        }else {
+        } else {
           createNullEle(color7, "NULL", mgTop, mgLeft);
         }
       }
@@ -262,43 +294,43 @@ function reset() {
 
 // ----------- USER PREFERENCES ---------------
 
-function change_color (val) {
+function change_color(val) {
   switch (val) {
     case 1:
-      color1 = document.getElementById('c1').value;
+      color1 = document.getElementById("c1").value;
       console.log("warna 1", color1);
       break;
-      case 2:
-        color2 = document.getElementById('c2').value;        
-        break;
-        case 3:
-          color3 = document.getElementById('c3').value;
-          break;
-          case 4:
-            color4 = document.getElementById('c4').value;
-            break;
-            case 5:
-              color5 = document.getElementById('c5').value;
-              break;
-              case 6:
-                color6 = document.getElementById('c6').value;
-                break;
-                case 7:
-                  color7 = document.getElementById('c7').value;
-                  break;
-                  case 8:
-                    color8 = document.getElementById('c8').value;
-                    break;
-                    case 9:
-                      color9 = document.getElementById('c9').value;
-                      break;
+    case 2:
+      color2 = document.getElementById("c2").value;
+      break;
+    case 3:
+      color3 = document.getElementById("c3").value;
+      break;
+    case 4:
+      color4 = document.getElementById("c4").value;
+      break;
+    case 5:
+      color5 = document.getElementById("c5").value;
+      break;
+    case 6:
+      color6 = document.getElementById("c6").value;
+      break;
+    case 7:
+      color7 = document.getElementById("c7").value;
+      break;
+    case 8:
+      color8 = document.getElementById("c8").value;
+      break;
+    case 9:
+      color9 = document.getElementById("c9").value;
+      break;
   }
 
   document.getElementById("as").replaceChildren();
   jsonsubmit();
 }
 
-function change_fontsize () {
+function change_fontsize() {
   let a = document.getElementById("fontsize").value;
   console.log("font size", a);
   font_size = a;
@@ -324,4 +356,4 @@ function testloop() {
 }
 
 //-----------------------------------------------
-// last phase dev 
+// last phase dev
