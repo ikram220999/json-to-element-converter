@@ -75,7 +75,7 @@
         align-items: center;
         border-right: 2px solid lightgray;
         margin-right: 20px;
-        padding-bottom: 60px;
+        padding-bottom: 20px;
         background-color: whitesmoke;
       }
 
@@ -123,6 +123,10 @@
         margin-bottom: 10px;
       }
 
+      .credit {
+        margin-top: 50px;
+      }
+
       /* width */
 ::-webkit-scrollbar {
   height: 10px;
@@ -152,13 +156,13 @@
       <div class="field">
         <h2>JSON CONVERTER</h2>
         <h3>Paste your JSON here</h3>
-        <textarea style="width: 80%; height: 300px; max-width: 80%; max-height: 300px" id="input"> </textarea>
+        <textarea style="width: 80%; min-height: 150px; max-width: 80%; max-height: 300px" id="input"> </textarea>
         <br />
         <div class="btn">
           <button onclick="reset()" class="btn r">Reset</button>
           <button onclick="jsonsubmit()" class="btn s">Convert</button>
         </div>
-        <br><br>
+        <br>
         <div class="bot-field">
           <h4>Font size</h4>
           <input type="number" placeholder="10" name="font" id="fontsize" style="padding: 10px 10px;">
@@ -210,7 +214,11 @@
               <button onclick="change_color(9)" class="btn2 blue">Set</button>
             </div>  
           </div>
+          
+        </div>
+        <div class="credit">
 
+            Dev by Ikram
         </div>
       </div>
       <div class="result-wrap">
@@ -221,6 +229,6 @@
       </div>
       
     </div>
-
+   
   </body>
 </html>
