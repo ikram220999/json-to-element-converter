@@ -5,6 +5,16 @@ let parentMgTop = 0;
 let parentMgLeft = 0;
 
 let colorArr = ["maroon", "pink", "cyan"];
+
+let color1 = "#808080";
+let color2 = "#008000";
+let color3 = "#FF0000";
+let color4 = "#800000";
+let color5 = "#0000FF";
+let color6 = "#800080";
+let color7 = "#DC143C";
+let color8 = "#FF7F50";
+let color9 = "#FFA500";
 let curLayer = 0;
 let count = 0;
 
@@ -35,7 +45,7 @@ function jsonsubmit() {
       // confirm array
       element.map((ele) => {
         mgTop = parentMgTop;
-        mgLeft = parentMgLeft + 20;
+        mgLeft = parentMgLeft + 40;
         parentMgLeft = mgLeft;
 
         addArray(ele, mgTop, mgLeft);
@@ -49,7 +59,7 @@ function jsonsubmit() {
 
 // ---------- DETERMINE ELEMENT -------------
 function parentBox(val, mgTop, mgLeft) {
-  createEle("grey", val, mgTop, mgLeft);
+  createEle(color1, val, mgTop, mgLeft);
 }
 
 // ---------------- ALGORITHM ----------------
@@ -67,17 +77,17 @@ function addArray(ele, mgTop, mgLeft) {
         } else {
           if (typeof ele === "object") {
             Object.keys(ele).forEach((key, idx) => {
-              createEle("green", key, mgTop, mgLeft);
+              createEle(color2, key, mgTop, mgLeft);
 
               if (typeof ele[key] == "object") {
               } else {
-                createChildEle("orange", ele[key], mgTop, mgLeft + 20);
+                createChildEle(color9, ele[key], mgTop, mgLeft + 40);
               }
             });
           } else {
-            mgLeft = parentMgLeft + 20;
-            createEle("green", ele, mgTop, mgLeft);
-            parentMgLeft = mgLeft - 20;
+            mgLeft = parentMgLeft + 40;
+            createEle(color2, ele, mgTop, mgLeft);
+            parentMgLeft = mgLeft - 40;
 
             mgLeft = 0;
           }
@@ -87,7 +97,7 @@ function addArray(ele, mgTop, mgLeft) {
       if (typeof ele === "object") {
         console.log("first ele", ele);
         Object.keys(ele).forEach((key, idx) => {
-          createEle("green", key, mgTop, mgLeft);
+          createEle(color2, key, mgTop, mgLeft);
 
           if (typeof key == "object") {
             if (Array.isArray(ele[key])) {
@@ -95,7 +105,7 @@ function addArray(ele, mgTop, mgLeft) {
                 console.log("array baru", ele);
               });
             } else {
-              createChildEle("blue", ele, mgTop, mgLeft + 20);
+              createChildEle(color5, ele, mgTop, mgLeft + 40);
             }
           }
 
@@ -104,13 +114,18 @@ function addArray(ele, mgTop, mgLeft) {
               console.log("array baru", ele);
 
               if (typeof ele == "object") {
-                addArray(ele, mgTop, mgLeft+20);
+                addArray(ele, mgTop, mgLeft+40);
               } else {
-                createChildEle("blue", ele, mgTop, mgLeft + 20);
+                createChildEle(color5, ele, mgTop, mgLeft + 40);
               }
             });
           } else {
-            createChildEle("red", ele[key], mgTop, mgLeft + 20);
+            if(typeof ele[key] == "object"){
+              Object.keys(ele[key].forEach((key) => {
+                createChildEle(color4, ele[key], mgTop, mgLeft + 40);
+              }))
+            }
+            createChildEle(color3, ele[key], mgTop, mgLeft + 40);
           }
         });
       } else {
@@ -120,15 +135,22 @@ function addArray(ele, mgTop, mgLeft) {
     if (Array.isArray(ele)) {
       ele.map((ele) => {
         // addArray(ele, mgTop, mgLeft);
-        createEle("purple", ele, mgTop, mgLeft);
+        // console.log(, ele);
+        createEle(color6, ele, mgTop, mgLeft);
       });
     } else {
       mgLeft = parentMgLeft;
       console.log("cyclop", ele);
-      if (ele) {
-        createEle("maroon", ele, mgTop, mgLeft);
+      if (typeof ele == "boolean") {
+        createBooleanEle(color8, ele, mgTop, mgLeft);
       } else {
-        createNullEle();
+
+        if(ele){
+
+          createEle(color4, ele, mgTop, mgLeft);
+        }else {
+          createNullEle(color7, "NULL", mgTop, mgLeft);
+        }
       }
 
       parentMgLeft = mgLeft;
@@ -146,11 +168,11 @@ function ifArray(ele) {
   }
 }
 
-function createNullEle() {
+function createNullEle(color, data, mgTop, mgLeft) {
   let a = document.getElementById("as");
 
   var b = document.createElement("p");
-  b.style.backgroundColor = "purple";
+  b.style.backgroundColor = color;
   b.style.marginTop = "" + mgTop + "px";
   b.style.marginLeft = "" + mgLeft + "px";
   b.style.padding = "5px";
@@ -158,7 +180,25 @@ function createNullEle() {
   b.style.width = "max-content";
   b.style.color = "white";
 
-  var btext = document.createTextNode("NULL");
+  var btext = document.createTextNode(data);
+  b.appendChild(btext);
+
+  a.appendChild(b);
+}
+
+function createBooleanEle(color, data, mgTop, mgLeft) {
+  let a = document.getElementById("as");
+
+  var b = document.createElement("p");
+  b.style.backgroundColor = color;
+  b.style.marginTop = "" + mgTop + "px";
+  b.style.marginLeft = "" + mgLeft + "px";
+  b.style.padding = "5px";
+  b.style.fontSize = "" + font_size + "px";
+  b.style.width = "max-content";
+  b.style.color = "white";
+
+  var btext = document.createTextNode(data);
   b.appendChild(btext);
 
   a.appendChild(b);
@@ -218,6 +258,44 @@ function reset() {
   let a = document.getElementById("input");
   document.getElementById("as").replaceChildren();
   a.value = "";
+}
+
+// ----------- USER PREFERENCES ---------------
+
+function change_color (val) {
+  switch (val) {
+    case 1:
+      color1 = document.getElementById('c1').value;
+      console.log("warna 1", color1);
+      break;
+      case 2:
+        color2 = document.getElementById('c2').value;        
+        break;
+        case 3:
+          color3 = document.getElementById('c3').value;
+          break;
+          case 4:
+            color4 = document.getElementById('c4').value;
+            break;
+            case 5:
+              color5 = document.getElementById('c5').value;
+              break;
+              case 6:
+                color6 = document.getElementById('c6').value;
+                break;
+                case 7:
+                  color7 = document.getElementById('c7').value;
+                  break;
+                  case 8:
+                    color8 = document.getElementById('c8').value;
+                    break;
+                    case 9:
+                      color9 = document.getElementById('c9').value;
+                      break;
+  }
+
+  document.getElementById("as").replaceChildren();
+  jsonsubmit();
 }
 
 function change_fontsize () {

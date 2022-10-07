@@ -71,8 +71,26 @@
         margin-right: 20px;
       }
 
+      .btn2 {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+
       .result-wrap {
         width: 60%;
+      }
+
+      h4{
+        margin: 10px 5px;
+        padding: 0;
+      }
+
+      .col-input {
+        margin-top: 20px; 
+        display: flex;
+        flex-direction: row;
+        column-gap: 15px;
+        flex-wrap: wrap;
       }
 
       .result {
@@ -90,7 +108,7 @@
       <div class="field">
         <h2>JSON CONVERTER</h2>
         <h3>Paste your JSON here</h3>
-        <textarea style="min-width: 400px; min-height: 500px; max-width: 400px; max-height: 500px" id="input"> </textarea>
+        <textarea style="min-width: 400px; min-height: 300px; max-width: 400px; max-height: 300px" id="input"> </textarea>
         <br />
         <div class="btn">
           <button onclick="reset()" class="btn r">Reset</button>
@@ -99,8 +117,55 @@
         <br>
         <div>
           <h4>Font size</h4>
-          <input type="number" name="font" id="fontsize" style="padding: 10px 10px;">
+          <input type="number" placeholder="10" name="font" id="fontsize" style="padding: 10px 10px;">
           <button onclick="change_fontsize()" class="btn blue">Set</button>
+          <div class="col-input">
+            <div>
+              <h4>1st color</h4>
+              <input type="color" value="#808080" name="font" id="c1" style="width: 100px; height: 30px; cursor:pointer">
+              <button onclick="change_color(1)" class="btn2 blue">Set</button>
+            </div>
+            <div>
+              <h4>2nd color</h4>
+              <input type="color" value="#008000" name="font" id="c2" style="width: 100px; height: 30px; cursor:pointer">
+              <button onclick="change_color(2)" class="btn2 blue">Set</button>
+            </div>
+            <div>
+              <h4>3rd color</h4>
+              <input type="color" value="#FF0000" name="font" id="c3" style="width: 100px; height: 30px; cursor:pointer">
+              <button onclick="change_color(3)" class="btn2 blue">Set</button>
+            </div>
+            <div>
+              <h4>4th color</h4>
+              <input type="color" value="#800000" name="font" id="c4" style="width: 100px; height: 30px; cursor:pointer">
+              <button onclick="change_color(4)" class="btn2 blue">Set</button>
+            </div>  
+            <div>
+              <h4>5th color</h4>
+              <input type="color" value="#0000FF" name="font" id="c5" style="width: 100px; height: 30px; cursor:pointer">
+              <button onclick="change_color(5)" class="btn2 blue">Set</button>
+            </div>  
+            <div>
+              <h4>6th color</h4>
+              <input type="color" value="#800080" name="font" id="c6" style="width: 100px; height: 30px; cursor:pointer">
+              <button onclick="change_color(6)" class="btn2 blue">Set</button>
+            </div>  
+            <div>
+              <h4>7th color</h4>
+              <input type="color" value="#DC143C" name="font" id="c7" style="width: 100px; height: 30px; cursor:pointer">
+              <button onclick="change_color(7)" class="btn2 blue">Set</button>
+            </div>  
+            <div>
+              <h4>8th color</h4>
+              <input type="color" value="#FF7F50" name="font" id="c8" style="width: 100px; height: 30px; cursor:pointer">
+              <button onclick="change_color(8)" class="btn2 blue">Set</button>
+            </div>  
+            <div>
+              <h4>9th color</h4>
+              <input type="color" value="#FFA500" name="font" id="c9" style="width: 100px; height: 30px; cursor:pointer">
+              <button onclick="change_color(9)" class="btn2 blue">Set</button>
+            </div>  
+          </div>
 
         </div>
       </div>
