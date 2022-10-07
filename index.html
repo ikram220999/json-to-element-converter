@@ -8,6 +8,7 @@
     <title>Document</title>
 
     <style>
+      
       .sum {
         display: block;
         white-space: pre-wrap;
@@ -22,25 +23,93 @@
 
       .b {
         margin: auto;
-        width: 50%;
+        width: 70%;
+        height: 90vh;
+        display: flex;
+        flex-direction: row;
       }
 
       .btn {
-        display: flex;
-        justify-content: space-evenly;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        opacity: 0.9;
+      }
+
+      .r {
+        font-family: 'Courier New', Courier, monospace;
+        color: white;
+        background-color: red;
+        border: 0px;
+      }
+
+      .s {
+        font-family: 'Courier New', Courier, monospace;
+        color: white;
+        background-color: green;
+        border: 0px;
+      }
+
+      h3, h2 {
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      h2 {
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        display: inline-block;
+      }
+
+      .field {
+        font-family: 'Courier New', Courier, monospace;
+        width: 40%;
+        height: 100%;
+        border-right: 2px solid lightgray;
+        margin-right: 20px;
+      }
+
+      .result-wrap {
+        width: 60%;
+      }
+
+      .result {
+        height: 100%;
+        width: 100%;
+        font-size: 20px;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        overflow-y: scroll;
       }
     </style>
   </head>
   <body>
     <div class="b">
-      <textarea style="width: 100%; min-height: 150px" id="input"> </textarea>
-      <br />
-      <div class="btn">
-        <button onclick="reset()">Reset</button>
-        <button onclick="jsonsubmit()">Submit</button>
+      
+      <div class="field">
+        <h2>JSON CONVERTER</h2>
+        <h3>Paste your JSON here</h3>
+        <textarea style="min-width: 400px; min-height: 500px; max-width: 400px; max-height: 500px" id="input"> </textarea>
+        <br />
+        <div class="btn">
+          <button onclick="reset()" class="btn r">Reset</button>
+          <button onclick="jsonsubmit()" class="btn s">Convert</button>
+        </div>
+        <br>
+        <div>
+          <h4>Font size</h4>
+          <input type="number" name="font" id="fontsize" style="padding: 10px 10px;">
+          <button onclick="change_fontsize()" class="btn blue">Set</button>
+
+        </div>
       </div>
+      <div class="result-wrap">
+        <h3>Result</h3>
+        <div id="as" class="result"></div>
+      </div>
+      
     </div>
 
-    <div id="as"></div>
   </body>
 </html>

@@ -4,6 +4,11 @@ let marginLeft = 0;
 let parentMgTop = 0;
 let parentMgLeft = 0;
 
+let colorArr = ["maroon", "pink", "cyan"];
+let curLayer = 0;
+let count = 0;
+
+let font_size = 10;
 function jsonsubmit() {
   let a = document.getElementById("input").value;
   let json = JSON.parse(a);
@@ -61,33 +66,7 @@ function addArray(ele, mgTop, mgLeft) {
           addArray(ele, mgTop, mgLeft);
         } else {
           if (typeof ele === "object") {
-            // Object.entries(ele).forEach((element, idx) => {
-            //   console.log("inner 2 object", element);
-            //   addArray(element, mgTop, mgLeft);
-            // });
-
             Object.keys(ele).forEach((key, idx) => {
-              // if (Array.isArray(element)) {
-              //   element.map((ele) => {
-              //     console.log("outer 3", ele);
-              //     if (ele === "object") {
-              //       addArray(ele, mgTop, mgLeft);
-              //     } else if (Array.isArray(ele)) {
-              //       addArray(ele, mgTop, mgLeft);
-              //     } else {
-              //       mgLeft = parentMgLeft + 20;
-              //       createEle("orange", ele, mgTop, mgLeft);
-              //       parentMgLeft = mgLeft - 20;
-
-              //       mgLeft = 0;
-              //     }
-              //   });
-              // } else {
-              //   console.log("outer object", element);
-              //   console.log("outer object type", typeof element);
-              //   // createEle("green", ele, mgTop, mgLeft);
-              //   addArray(ele, mgTop, mgLeft);
-              // }
               createEle("green", key, mgTop, mgLeft);
 
               if (typeof ele[key] == "object") {
@@ -108,31 +87,8 @@ function addArray(ele, mgTop, mgLeft) {
       if (typeof ele === "object") {
         console.log("first ele", ele);
         Object.keys(ele).forEach((key, idx) => {
-          // if (Array.isArray(element)) {
-          //   element.map((ele) => {
-          //     console.log("outer 3", ele);
-          //     if (ele === "object") {
-          //       addArray(ele, mgTop, mgLeft);
-          //     } else if (Array.isArray(ele)) {
-          //       addArray(ele, mgTop, mgLeft);
-          //     } else {
-          //       mgLeft = parentMgLeft + 20;
-          //       createEle("orange", ele, mgTop, mgLeft);
-          //       parentMgLeft = mgLeft - 20;
-
-          //       mgLeft = 0;
-          //     }
-          //   });
-          // } else {
-          //   console.log("outer object", element);
-          //   console.log("outer object type", typeof element);
-          //   // createEle("green", ele, mgTop, mgLeft);
-          //   addArray(ele, mgTop, mgLeft);
-          // }
           createEle("green", key, mgTop, mgLeft);
 
-          // console.log("typeof ele 4", typeof ele[key]);
-          // console.log("ele 4", ele[key]);
           if (typeof key == "object") {
             if (Array.isArray(ele[key])) {
               ele[key].map((ele) => {
@@ -146,11 +102,16 @@ function addArray(ele, mgTop, mgLeft) {
           if (Array.isArray(ele[key])) {
             ele[key].map((ele) => {
               console.log("array baru", ele);
-              createChildEle("blue", ele, mgTop, mgLeft + 20);
+
+              if (typeof ele == "object") {
+                addArray(ele, mgTop, mgLeft+20);
+              } else {
+                createChildEle("blue", ele, mgTop, mgLeft + 20);
+              }
             });
           } else {
+            createChildEle("red", ele[key], mgTop, mgLeft + 20);
           }
-          createChildEle("red", ele[key], mgTop, mgLeft + 20);
         });
       } else {
       }
@@ -165,7 +126,7 @@ function addArray(ele, mgTop, mgLeft) {
       mgLeft = parentMgLeft;
       console.log("cyclop", ele);
       if (ele) {
-        createEle("red", ele, mgTop, mgLeft);
+        createEle("maroon", ele, mgTop, mgLeft);
       } else {
         createNullEle();
       }
@@ -175,6 +136,9 @@ function addArray(ele, mgTop, mgLeft) {
       mgLeft = 0;
     }
   }
+
+  count++;
+  // if(count == )
 }
 
 function ifArray(ele) {
@@ -190,7 +154,7 @@ function createNullEle() {
   b.style.marginTop = "" + mgTop + "px";
   b.style.marginLeft = "" + mgLeft + "px";
   b.style.padding = "5px";
-  b.style.fontSize = "10px";
+  b.style.fontSize = "" + font_size + "px";
   b.style.width = "max-content";
   b.style.color = "white";
 
@@ -213,7 +177,7 @@ function createEle(bgColor, data, mgTop, mgLeft) {
   b.style.marginTop = "" + mgTop + "px";
   b.style.marginLeft = "" + mgLeft + "px";
   b.style.padding = "5px";
-  b.style.fontSize = "10px";
+  b.style.fontSize = "" + font_size + "px";
   b.style.width = "max-content";
   b.style.color = "white";
 
@@ -231,7 +195,7 @@ function createChildEle(bgColor, data, mgTop, mgLeft) {
   b.style.marginTop = "" + mgTop + "px";
   b.style.marginLeft = "" + mgLeft + "px";
   b.style.padding = "5px";
-  b.style.fontSize = "10px";
+  b.style.fontSize = "" + font_size + "px";
   b.style.width = "max-content";
   b.style.color = "white";
 
@@ -254,6 +218,15 @@ function reset() {
   let a = document.getElementById("input");
   document.getElementById("as").replaceChildren();
   a.value = "";
+}
+
+function change_fontsize () {
+  let a = document.getElementById("fontsize").value;
+  console.log("font size", a);
+  font_size = a;
+
+  document.getElementById("as").replaceChildren();
+  jsonsubmit();
 }
 // -------------- TESTING ----------------------
 
