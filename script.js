@@ -6,15 +6,15 @@ let parentMgLeft = 0;
 
 let colorArr = ["maroon", "pink", "cyan"];
 
-let color1 = "#808080";
-let color2 = "#008000";
-let color3 = "#FF0000";
-let color4 = "#800000";
-let color5 = "#0000FF";
-let color6 = "#800080";
-let color7 = "#DC143C";
-let color8 = "#FF7F50";
-let color9 = "#FFA500";
+let color1 = "#808080"; // gray
+let color2 = "#008000"; // green
+let color3 = "#FF0000"; // red
+let color4 = "#800000"; // maroon
+let color5 = "#0000FF"; // blue
+let color6 = "#800080"; // purple
+let color7 = "#DC143C"; // pink
+let color8 = "#FF7F50"; // peach
+let color9 = "#FFA500"; // orange
 let curLayer = 0;
 let count = 0;
 
@@ -22,13 +22,12 @@ let font_size = 10;
 function jsonsubmit() {
   let o = document.getElementById("input");
   let a = document.getElementById("input").value;
- 
 
-  let f = isJson(a)
+  let f = isJson(a);
 
-  console.log("f",f);
+  console.log("f", f);
   if (f == true) {
-     let json = JSON.parse(a);
+    let json = JSON.parse(a);
     console.log("KETUA JSON", json);
     let length = Object.keys(json);
 
@@ -62,28 +61,23 @@ function jsonsubmit() {
       }
     });
   } else {
-    
     // o.style.border = "1px solid red"
     alert("Only JSON can be converted");
     console.log("only json can be converted");
-    
-
   }
 }
 
 function isJson(item) {
-  item = typeof item !== "string"
-      ? JSON.stringify(item)
-      : item;
+  item = typeof item !== "string" ? JSON.stringify(item) : item;
 
   try {
-      item = JSON.parse(item);
+    item = JSON.parse(item);
   } catch (e) {
-      return false;
+    return false;
   }
 
   if (typeof item === "object" && item !== null) {
-      return true;
+    return true;
   }
 
   return false;
@@ -119,6 +113,8 @@ function addArray(ele, mgTop, mgLeft) {
           } else {
             mgLeft = parentMgLeft + 40;
             createEle(color2, ele, mgTop, mgLeft);
+
+            addArray(ele, mgTop, mgLeft);
             parentMgLeft = mgLeft - 40;
 
             mgLeft = 0;
@@ -153,16 +149,47 @@ function addArray(ele, mgTop, mgLeft) {
             });
           } else {
             if (typeof ele[key] == "object") {
-              Object.keys(
-                ele[key].forEach((key) => {
-                  createChildEle(color4, ele[key], mgTop, mgLeft + 40);
-                })
-              );
+              // Object.keys(
+
+              console.log("ele[key]", ele[key]);
+
+              let ele2 = ele[key];
+              Object.keys(ele2).forEach((key, idx) => {
+                console.log("ele[key] inside foreach", ele2[key]);
+
+                createEle(color3, key, mgTop, mgLeft + 40);
+
+                parentMgLeft = mgLeft + 40;
+
+                if (typeof ele2[key] == "object") {
+                  if (Array.isArray(ele2[key])) {
+                    ele2[key].map((ele) => {
+                      console.log("array baru", ele);
+                      createChildEle(color5, ele, mgTop, mgLeft + 40);
+                    });
+                  } else {
+                    addArray(ele2[key], mgTop, parentMgLeft + 40);
+                    // createChildEle(color6, ele2[key], mgTop, parentMgLeft + 40);
+                  }
+                } else {
+                  createChildEle(color5, ele2[key], mgTop, parentMgLeft + 40);
+                }
+              });
+              // );
+            } else {
+              createChildEle(color3, ele[key], mgTop, mgLeft + 40);
             }
-            createChildEle(color3, ele[key], mgTop, mgLeft + 40);
           }
         });
       } else {
+        // mgLeft = parentMgLeft + 40;
+        // createEle(color2, ele, mgTop, mgLeft);
+
+        // parentMgLeft = mgLeft - 40;
+
+        // mgLeft = 0;
+
+        console.log("laravel", ele);
       }
     }
   } else {
