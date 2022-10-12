@@ -93,6 +93,7 @@ function addArray(ele, mgTop, mgLeft) {
   console.log("ele", ele);
   console.log("ele", typeof ele);
   console.log("------------------------");
+
   if (typeof ele === "object") {
     if (Array.isArray(ele)) {
       console.log("inner 1", ele);
@@ -131,9 +132,12 @@ function addArray(ele, mgTop, mgLeft) {
             if (Array.isArray(ele[key])) {
               ele[key].map((ele) => {
                 console.log("array baru", ele);
+                // createChildEle(color5, ele, mgTop, mgLeft + 40);
+                addArray(ele, mgTop, mgLeft + 40);
               });
             } else {
-              createChildEle(color5, ele, mgTop, mgLeft + 40);
+              console.log("mesti array 1 ", ele);
+              // createChildEle(color5, ele, mgTop, mgLeft + 40);
             }
           }
 
@@ -144,20 +148,19 @@ function addArray(ele, mgTop, mgLeft) {
               if (typeof ele == "object") {
                 addArray(ele, mgTop, mgLeft + 40);
               } else {
-                createChildEle(color5, ele, mgTop, mgLeft + 40);
+                console.log("mesti array ni", ele);
+                // createChildEle(color5, ele, mgTop, mgLeft + 40);
               }
             });
           } else {
             if (typeof ele[key] == "object") {
-              // Object.keys(
-
               console.log("ele[key]", ele[key]);
 
               let ele2 = ele[key];
               Object.keys(ele2).forEach((key, idx) => {
                 console.log("ele[key] inside foreach", ele2[key]);
 
-                createEle(color3, key, mgTop, mgLeft + 40);
+                createEle(color3, key, mgTop, parentMgLeft + 40);
 
                 parentMgLeft = mgLeft + 40;
 
@@ -165,31 +168,24 @@ function addArray(ele, mgTop, mgLeft) {
                   if (Array.isArray(ele2[key])) {
                     ele2[key].map((ele) => {
                       console.log("array baru", ele);
-                      createChildEle(color5, ele, mgTop, mgLeft + 40);
+                      addArray(ele, mgTop, mgLeft + 40);
+                      // createChildEle(color5, ele, mgTop, mgLeft + 40);
                     });
                   } else {
                     addArray(ele2[key], mgTop, parentMgLeft + 40);
-                    // createChildEle(color6, ele2[key], mgTop, parentMgLeft + 40);
                   }
                 } else {
+                  console.log("mesti array ni", ele2[key]);
                   createChildEle(color5, ele2[key], mgTop, parentMgLeft + 40);
                 }
               });
-              // );
             } else {
               createChildEle(color3, ele[key], mgTop, mgLeft + 40);
             }
           }
         });
       } else {
-        // mgLeft = parentMgLeft + 40;
-        // createEle(color2, ele, mgTop, mgLeft);
-
-        // parentMgLeft = mgLeft - 40;
-
-        // mgLeft = 0;
-
-        console.log("laravel", ele);
+        createNullEle(color6, "NULL", mgTop, mgLeft + 40);
       }
     }
   } else {
@@ -205,7 +201,7 @@ function addArray(ele, mgTop, mgLeft) {
       if (typeof ele == "boolean") {
         createBooleanEle(color8, ele, mgTop, mgLeft);
       } else {
-        if (ele) {
+        if (ele != null) {
           createEle(color4, ele, mgTop, mgLeft);
         } else {
           createNullEle(color7, "NULL", mgTop, mgLeft);
